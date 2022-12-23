@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import time
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import date
+import datetime
 
 while True:
     scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive']
@@ -58,15 +60,15 @@ while True:
 
             sheet.update_cell(index,5,price_average)
 
+            today = date.today()
+            now = datetime.datetime.now()
+            dth = today.strftime("%d/%m/%Y") + " - " + now.strftime("%H:%M:%S")
+
+            sheet.update_cell(index,4,dth)
+
             index += 1
         except:
             pass
-
-        print("RefPrice :", ref_price)
-        print("MinPrice :", min_price)
-        print("MaxPrice :", max_price)
-        print("PriceAverage :",price_average)
-        print("================")
 
 
 
